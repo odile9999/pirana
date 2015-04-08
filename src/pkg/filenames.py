@@ -14,14 +14,14 @@ class FilesAndDirs(object):
     Manage to find spectra in data directories
     """
 
-    def __init__(self, folder="G:\PIRENEA_manips", year=2014, month=5, day=12):
+    def __init__(self, folder="D:", year=2014, month=5, day=12):
         """
         Constructor
         """
         self.year = int(year)
         self.month = int(month)
         self.day = int(day)
-        self.folder = folder
+        self.folder = folder + os.sep + "PIRENEA_manips"
         self.files = []
 
     def get_years(self, folder):
@@ -37,7 +37,7 @@ class FilesAndDirs(object):
         else:
             li = os.listdir(dirname)
             for y in li:
-                if len(y) == 4:
+                if len(y) == 4 and y.isdecimal():
                     list_years.append(y)
         return list_years
 
@@ -46,7 +46,7 @@ class FilesAndDirs(object):
         Return a list of months for one directory
         """
         self.year = year
-        dirname = self.folder + str("\\") + '%d' % self.year
+        dirname = self.folder + os.sep + '%d' % self.year
         dirname = os.path.join(self.folder, dirname)
         list_months = []
 
@@ -68,7 +68,7 @@ class FilesAndDirs(object):
         """
         self.year = year
         self.month = month
-        dirname = self.folder + str("\\") + '%d' % self.year
+        dirname = self.folder + os.sep + '%d' % self.year
         dirname = os.path.join(self.folder, dirname)
         list_days = []
 
@@ -95,8 +95,8 @@ class FilesAndDirs(object):
         self.day = day
 
         # create directory name
-        directory = self.folder + str("\\") + \
-            '%d' % self.year + str("\\") + \
+        directory = self.folder + os.sep + \
+            '%d' % self.year + os.sep + \
             "data_" + '%d' % self.year + \
             "_" + '%02d' % self.month + \
             "_" + '%02d' % self.day
@@ -178,7 +178,7 @@ class FilesAndDirs(object):
             print("Not a directory: ", dirname)
         else:
             # create spectrum name
-            spectrumName = dirname + str("\\") + \
+            spectrumName = dirname + os.sep + \
                 '%d' % int(year) + str("_") + \
                 '%02d' % int(month) + str("_") + \
                 '%02d' % int(day) + str("_") + \
