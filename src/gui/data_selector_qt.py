@@ -146,4 +146,4 @@ class Ui_DockWidget_DataSelector(object):
         self.label_Number.setText(
             _translate("DockWidget_DataSelector", "Number", None))
         self.lineEdit_Folder.setText(
-            _translate("DockWidget_DataSelector", "D:\\PIRENEA_manips", None))
+            _translate("DockWidget_DataSelector", "D:\PIRENEA_manips", None))
