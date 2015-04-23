@@ -29,6 +29,7 @@ class Pipeline(object):
         self.filename = filename
         self.__process_file()
 
+#     @profile
     def __process_file(self):
         """ operations on files """
         self.raw = RawDataset(self.filename)
@@ -46,7 +47,10 @@ class Pipeline(object):
             self.start = 0
             self.end = round(self.points / 2)
 
+#     @profile
     def process_signal(self, start=0, end=0, hann=False, half=False, zero=False, zero_twice=False):
+        if end > len(self.raw.signal):
+            end = len(self.raw.signal)
         self.signal = self.raw.truncate(start, end)
         if hann:
             self.signal = self.raw.hann(self.signal, half=False)
@@ -61,6 +65,7 @@ class Pipeline(object):
             dummy[0:(end - start)] = self.signal
             self.signal = dummy
 
+#     @profile
     def process_spectrum(self, factor=1000.0, ref_mass=0.0, cyclo_freq=0.0, mag_freq=0.0):
         #         t = time.time()
         fs = FrequencySpectrum(self.signal, self.step)
@@ -103,9 +108,8 @@ class Pipeline(object):
         # Detect peak greater than threshold
         threshold = 0.0
         # Don't use default plot
+#         ind = p.detect_peaks(y[mask], mph, mpd, threshold, edge)
         ind = p.detect_peaks(y[mask], self.mph, self.mpd, threshold, edge)
-#             print("mass =", x[mask][ind])
-#             print("inten=", y[mask][ind])
 
         self.mph = mph
         self.mpd = mpd
@@ -116,21 +120,25 @@ if __name__ == '__main__':
 
     import matplotlib.pyplot as plt
 
-    # step = 0.5 524288
-    filename = "G:\\PIRENEA_manips\\2010\\data_2010_07_27\\2010_07_27_002.A00"
+#     filename = "G:\\PIRENEA_manips\\2010\\data_2010_07_27\\2010_07_27_002.A00"
+#     filename = "G:\\PIRENEA_manips\\2014\\data_2014_06_26\\2014_06_26_011.A00"
+#     filename = "G:\\PIRENEA_manips\\2014\\data_2014_07_30\\2014_07_30_001.A00"
+#     filename = "G:\\PIRENEA_manips\\2014\\data_2014_07_30\\2014_07_30_001.A00"
+#     filename = "G:\\PIRENEA_manips\\2010\\data_2010_07_27\\2010_07_27_002.A00"
+#     filename = "G:\\PIRENEA_manips\\2014\\data_2014_05_12\\2014_05_12_005.A00"
     filename = "G:\\PIRENEA_manips\\2014\\data_2014_06_26\\2014_06_26_011.A00"
-    filename = "G:\\PIRENEA_manips\\2014\\data_2014_07_30\\2014_07_30_001.A00"
-    filename = "G:\\PIRENEA_manips\\2014\\data_2014_06_26\\2014_06_26_011.A00"
-    filename = "G:\\PIRENEA_manips\\2014\\data_2014_07_30\\2014_07_30_001.A00"
-    filename = "G:\\PIRENEA_manips\\2010\\data_2010_07_27\\2010_07_27_002.A00"
-    filename = "G:\\PIRENEA_manips\\2014\\data_2014_05_12\\2014_05_12_005.A00"
 
     pip = Pipeline(filename)
+    pip.process_signal(pip.start, pip.end, True, False, True, False)
+    pip.process_spectrum(1000.0, 300.0939, 255.727 * 1e3, 0.001 * 1e3)
+    mph, mpd = 0.04, 50
+    pip.process_peaks(mph, mpd, 290.0, 310.0)
+    pip.process_peaks(pip.mph, pip.mpd, 290.0, 310.0)
     mask = pip.mask
     ind = pip.ind
 
-    x = np.asarray(pip.ms.mass)
-    y = np.asarray(pip.ms.spectrum)
+    x = np.asarray(pip.mass)
+    y = np.asarray(pip.spectrum)
     print("mass =", x[mask][ind])
     print("peak =", y[mask][ind])
 
@@ -141,7 +149,7 @@ if __name__ == '__main__':
         x[mask][ind], y[mask][ind], '+', mfc=None, mec='r', mew=2, ms=8)
 
     ax.set_title("%s (mph=%.3f, mpd=%d)" %
-                 ('Peak detection', pip.mph, pip.mpd))
+                 ('Peaks', pip.mph, pip.mpd), fontsize=9)
     # test legende
     # fig.legend([line2], ['nnn'])
 
