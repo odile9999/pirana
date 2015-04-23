@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'D:\S.O.F.T.S\PIRENEA\PYTHON\Pirana\src\gui\analysis_qt.ui'
+# Form implementation generated from reading ui file 'D:\S.O.F.T.S\PIRENEA\PYTHON\pirana\src\gui\analysis_qt.ui'
 #
-# Created: Mon Mar 23 17:31:46 2015
-#      by: PyQt4 UI code generator 4.9.6
+# Created: Thu Apr 16 18:04:06 2015
+#      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
