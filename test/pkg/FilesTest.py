@@ -12,7 +12,6 @@ from pkg.dataset import RawDataset
 class Test(unittest.TestCase):
 
     def setUp(self):
-        """ comment"""
         self.filename = "G:\\PIRENEA_manips\\2014\\data_2014_07_30\\2014_07_30_001.A00"
         self.wrong = self.filename + ".txt"
 

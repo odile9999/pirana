@@ -26,7 +26,7 @@ class AnalysisGUI(QtGui.QDockWidget):
     plotMassRaisedSignal = pyqtSignal(
         object, object, object, float, float, float, bool)
     plotPeaksRaisedSignal = pyqtSignal(
-        object, object, object, object, float, int, float, float)
+        object, object, object, object, float, int, float, float, bool)
 
     def __init__(self, parent=None):
         """
@@ -177,4 +177,4 @@ class AnalysisGUI(QtGui.QDockWidget):
         self.plotPeaksRaisedSignal.emit(
             self.shortname, y, x, self.pip.ind,
             float(self.mph), int(self.mpd), float(self.peaks_x1),
-            float(self.peaks_x2))
+            float(self.peaks_x2), bool(self.hold))
