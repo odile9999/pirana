@@ -6,12 +6,12 @@ Created on 2 f�vr. 2015
 gui.plots
 """
 from PyQt4 import QtGui
+from matplotlib import rcParams
 from matplotlib.backends.backend_qt4 import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as Canvas
 from matplotlib.figure import Figure
 
 from gui.plots_qt import Ui_TabWidget_Plots
-
 import numpy as np
 
 
@@ -111,6 +111,9 @@ class MatplotlibWidget(Canvas):
         self.ax.set_title(title)
         self.ax.set_xlabel(xlabel)
         self.ax.set_ylabel(ylabel)
+        rcParams['font.size'] = 12
+        rcParams['axes.titlesize'] = 12
+        self.figure.gca().margins(0.5, 0.5)
 
     def plot_data(self, x, y, title, xlabel, ylabel):
         self.ax.plot(x, y)
@@ -125,7 +128,6 @@ class MatplotlibWidget(Canvas):
         self.ax.set_title(title)
         self.ax.set_xlabel(xlabel)
         self.ax.set_ylabel(ylabel)
-        self.draw()
 
     def plot_peaks(self, x, y, ind, title, xlabel, ylabel, x1=-1.0, x2=-1.0, hold=False):
         min_x = x1
