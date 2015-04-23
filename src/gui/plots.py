@@ -89,12 +89,12 @@ class PlotsGUI(QtGui.QTabWidget):
         x = mass
         self.mpl_mass.plot_mass(x, y, title, "Mass (u)", "a.u.", hold)
 
-    def update_peaks(self, shortname, y, mass, ind, mph, mpd, x1, x2, hold):
+    def update_peaks(self, shortname, y, mass, ind, mph, mpd, x1, x2):
         title = shortname + " - mass spectrum - " + \
             "(mph=" + str(mph) + ", mpd=" + str(mpd) + ")"
         x = mass
         self.mpl_peaks.plot_peaks(
-            x, y, ind, title, "Mass (u)", "a.u.", x1, x2, hold)
+            x, y, ind, title, "Mass (u)", "a.u.", x1, x2)
 
 
 class MatplotlibWidget(Canvas):
@@ -129,7 +129,7 @@ class MatplotlibWidget(Canvas):
         self.ax.set_xlabel(xlabel)
         self.ax.set_ylabel(ylabel)
 
-    def plot_peaks(self, x, y, ind, title, xlabel, ylabel, x1=-1.0, x2=-1.0, hold=False):
+    def plot_peaks(self, x, y, ind, title, xlabel, ylabel, x1=-1.0, x2=-1.0):
         min_x = x1
         max_x = x2
         # dummy plot to apply the hold=True command
