@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """This module manages the display of the data selector."""
 """
-Created on 02 dec. 2014
+
 @author: Odile
 
 """
