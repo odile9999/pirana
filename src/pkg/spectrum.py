@@ -3,6 +3,7 @@
 """
 Created on 22 mai 2014.
 @author: Odile
+Use this as test for GitHub
 """
 import os
 import time
