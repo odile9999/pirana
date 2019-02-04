@@ -3,7 +3,7 @@
 """
 Created on 22 mai 2014.
 @author: Odile
-Tets again
+Test again
 """
 import os
 import time
